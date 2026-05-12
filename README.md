@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+< Nels1Radar>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <!-- O nome que aparece na aba do navegador -->
+    <!--  Nels1Radar  >
     <title>  Nels1Radar  | COMMAND CENTER</title>
     <style>
         :root { 
             --bg: #000205; 
-            --neon-blue: #00d2ff; 
+            --neon-red: #00d2ff; 
             --br-green: #00ff41; 
             --sidebar-blue: #8ec2ff;
         }
@@ -15,7 +15,7 @@
         
         /* SIDEBAR - DESIGN Nels1Radar */
         #sidebar { 
-            width: 300px; 
+            width: 350px; 
             background: rgba(0, 10, 20, 0.98); 
             border-right: 1px solid #004400; 
             display: flex;
@@ -61,7 +61,7 @@
             background: url('https://upload.wikimedia.org/wikipedia/commons/2/2c/Rotating_earth_(large).gif') center/cover;
             box-shadow: inset 0 0 100px #000, 0 0 60px rgba(0, 255, 65, 0.2); border: 1px solid rgba(0, 255, 65, 0.3); }
         
-        @keyframes rotateBr { from { transform: rotateY(0deg) rotateX(10deg); } to { transform: rotateY(360deg) rotateX(10deg); } }
+        @keyframes rotateBr { from { transform: rotateY(0deg) rotateX(15deg); } to { transform: rotateY(360deg) rotateX(10deg); } }
 
         /* AS CRYPTOS VOANDO */
         .flyer { position: absolute; font-weight: bold; font-size: 20px; pointer-events: none; text-shadow: 0 0 20px currentColor; z-index: 200; }
@@ -78,7 +78,7 @@
 
 <div id="sidebar">
     <div class="header-table">
-        <div class="system-name">Nels1Radar v1.0</div>
+        <div class="system-name">    Nels1Radar  --v1.0</div>
         <div class="system-status">CORE: OPERATIONAL | BR-SP</div>
     </div>
     <div id="tx-feed">
@@ -88,7 +88,7 @@
 
 <div id="viewport">
     <div class="sphere" id="globe"></div>
-    <div class="footer-tag">SANTANA DE PARNAÍBA SP // ASSET_FLOW: ACTIVE</div>
+    <div class="footer-tag" > SANTANA DE PARNAÍBA SP // ASSET_FLOW: ACTIVE</div>
 </div>
 
 <script>
