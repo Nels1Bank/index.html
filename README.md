@@ -3,112 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- É AQUI QUE A MÁGICA ACONTECE: O NOME DA ABA -->
-    <title>Nels1Radar | Command Center</title>
+    <title>Nels1Radar</title>
     <style>
         :root { 
             --bg: #030712; 
+            --btc-orange: #f7931a; 
             --accent: #10b981; 
-            --btc: #f7931a;
-            --eth: #627eea;
-            --sol: #14f195;
-            --usdc: #2775ca;
-            --glass: rgba(17, 24, 39, 0.7);
+            --glass: rgba(17, 24, 39, 0.8);
         }
 
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; outline: none; }
 
         body, html { 
             margin: 0; padding: 0; 
             background-color: var(--bg); 
             color: #f3f4f6; 
-            font-family: 'Inter', sans-serif; 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
             height: 100vh; overflow: hidden; 
             display: flex; 
         }
 
-        /* SIDEBAR GLASSMORPISM */
+        /* SIDEBAR PROFISSIONAL */
         #sidebar { 
             width: 320px; 
             background: var(--glass);
-            backdrop-filter: blur(12px);
-            border-right: 1px solid rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(15px);
+            border-right: 1px solid rgba(247, 147, 26, 0.2); 
             display: flex;
             flex-direction: column;
             z-index: 100;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.5);
         }
 
         .header-ui {
-            padding: 24px;
-            background: linear-gradient(to bottom, rgba(16, 185, 129, 0.1), transparent);
-            border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+            padding: 30px 20px;
+            background: linear-gradient(to bottom, rgba(247, 147, 26, 0.1), transparent);
+            border-bottom: 1px solid var(--btc-orange);
+            text-align: center;
         }
 
         .system-name { 
-            font-size: 18px; 
-            font-weight: 800; 
+            font-size: 24px; 
+            font-weight: 900; 
             letter-spacing: 1px; 
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            color: var(--btc-orange); /* LARANJA BTC NO TÍTULO */
+            text-transform: uppercase;
+            text-shadow: 0 0 15px rgba(247, 147, 26, 0.4);
         }
 
-        .status-dot {
-            width: 8px; height: 8px;
-            background: var(--accent);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent);
-            animation: pulse 2s infinite;
+        .location-tag {
+            font-size: 10px;
+            color: #9ca3af;
+            margin-top: 8px;
+            letter-spacing: 2px;
+            font-weight: bold;
         }
 
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
-
-        #tx-feed { flex-grow: 1; overflow-y: hidden; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+        #tx-feed { 
+            flex-grow: 1; 
+            overflow: hidden; 
+            padding: 20px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 12px; 
+        }
 
         .tx-card {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 12px;
-            border-radius: 12px;
-            font-size: 11px;
-            animation: slideUp 0.4s ease-out;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            border-left: 4px solid var(--btc-orange);
+            animation: fadeIn 0.5s ease;
         }
 
-        .tx-header { display: flex; justify-content: space-between; font-weight: bold; }
-        .tx-meta { font-size: 9px; color: #6b7280; margin-top: 5px; font-family: monospace; }
+        .tx-header { display: flex; justify-content: space-between; margin-bottom: 5px; font-weight: bold; }
+        .tx-id { font-family: monospace; font-size: 10px; color: #6b7280; }
 
-        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
 
-        /* VIEWPORT */
+        /* VIEWPORT DO GLOBO */
         #viewport { 
             flex-grow: 1; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
-            background: radial-gradient(circle at center, #064e3b 0%, #030712 100%);
+            background: radial-gradient(circle at center, #0a1a10 0%, #030712 100%);
             position: relative;
         }
 
         .sphere { 
-            width: 450px; height: 450px; 
+            width: 480px; height: 480px; 
             border-radius: 50%; 
-            position: relative;
-            transform-style: preserve-3d; 
             animation: rotateGlobe 60s linear infinite; 
             background: url('https://upload.wikimedia.org/wikipedia/commons/2/2c/Rotating_earth_(large).gif') center/cover;
-            box-shadow: inset 0 0 80px #000, 0 0 100px rgba(16, 185, 129, 0.1); 
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: inset 0 0 50px #000, 0 0 30px rgba(16, 185, 129, 0.1);
+            opacity: 0.8;
         }
 
         @keyframes rotateGlobe { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
 
-        .flyer { position: absolute; font-size: 26px; pointer-events: none; filter: drop-shadow(0 0 10px currentColor); z-index: 200; font-weight: bold; }
+        .flyer { position: absolute; font-size: 30px; pointer-events: none; filter: drop-shadow(0 0 10px currentColor); z-index: 200; font-weight: bold; }
 
-        .info-tag { 
-            position: absolute; bottom: 30px; right: 30px; 
-            background: var(--glass); padding: 10px 20px; border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.1); font-size: 10px; font-weight: bold;
+        .status-bar { 
+            position: absolute; bottom: 20px; right: 20px; 
+            font-size: 11px; font-weight: bold; color: var(--accent);
+            background: rgba(0,0,0,0.8); padding: 8px 15px; border-radius: 4px;
+            border: 1px solid var(--accent);
         }
     </style>
 </head>
@@ -116,18 +118,17 @@
 
 <div id="sidebar">
     <div class="header-ui">
-        <div class="system-name">
-            <div class="status-dot"></div>
-            Nels1Radar
-        </div>
-        <div style="font-size: 9px; color: #6b7280; margin-top: 5px;">ESTAÇÃO: SANTANA DE PARNAÍBA</div>
+        <div class="system-name">Nels1Radar</div>
+        <div class="location-tag">SANTANA DE PARNAÍBA</div>
     </div>
-    <div id="tx-feed"></div>
+    <div id="tx-feed">
+        <!-- Transações entram aqui -->
+    </div>
 </div>
 
 <div id="viewport">
-    <div class="sphere" id="globe"></div>
-    <div class="info-tag">● LIVE BLOCKCHAIN FEED</div>
+    <div class="sphere"></div>
+    <div class="status-bar">● SISTEMA OPERANTE</div>
 </div>
 
 <script>
@@ -146,34 +147,39 @@
     function processTx(coin, amount, color, symbol) {
         const card = document.createElement('div');
         card.className = 'tx-card';
-        card.style.borderLeft = `4px solid ${color}`;
-        card.innerHTML = `<div class="tx-header"><span style="color:${color}">${coin}</span><span>${amount}</span></div>
-                          <div class="tx-meta">REF: ${Math.random().toString(16).slice(2,10).toUpperCase()} | BR-SP</div>`;
+        card.style.borderLeftColor = color;
+        card.innerHTML = `
+            <div class="tx-header">
+                <span style="color:${color}">${coin}</span>
+                <span>${amount}</span>
+            </div>
+            <div class="tx-id">HASH: ${Math.random().toString(16).slice(2,10).toUpperCase()}</div>
+        `;
         feed.prepend(card);
-        if (feed.children.length > 15) feed.lastChild.remove();
+        if (feed.children.length > 14) feed.lastChild.remove();
 
         const flyer = document.createElement('div');
         flyer.className = 'flyer';
         flyer.innerText = symbol;
         flyer.style.color = color;
         const angle = Math.random() * Math.PI * 2;
-        const x = Math.cos(angle) * 320;
-        const y = Math.sin(angle) * 320;
+        const x = Math.cos(angle) * 350;
+        const y = Math.sin(angle) * 350;
         flyer.style.left = `calc(50% + ${x}px)`;
         flyer.style.top = `calc(50% + ${y}px)`;
         document.getElementById('viewport').appendChild(flyer);
         flyer.animate([
-            { transform: 'scale(1)', opacity: 1 },
+            { transform: 'scale(1.2)', opacity: 1 },
             { transform: `translate(${-x}px, ${-y}px) scale(0)`, opacity: 0 }
-        ], { duration: 2500 }).onfinish = () => flyer.remove();
+        ], { duration: 3000 }).onfinish = () => flyer.remove();
     }
 
+    // Outras moedas para volume
     setInterval(() => {
         const rand = Math.random();
-        if(rand > 0.8) processTx('ETH', (Math.random() * 2).toFixed(2), '#627eea', 'Ξ');
-        else if(rand > 0.7) processTx('SOL', (Math.random() * 25).toFixed(1), '#14f195', '◎');
-        else if(rand > 0.6) processTx('USDC', (Math.random() * 5000).toFixed(0), '#2775ca', 'S');
-    }, 2000);
+        if(rand > 0.8) processTx('ETH', (Math.random() * 1.5).toFixed(2), '#627eea', 'Ξ');
+        else if(rand > 0.7) processTx('SOL', (Math.random() * 20).toFixed(1), '#14f195', '◎');
+    }, 2500);
 </script>
 
 </body>
