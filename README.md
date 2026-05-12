@@ -1,105 +1,129 @@
-</Nels1Radar>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-9">
-    <title> NELS1RADAR | REAL-TIME BLOCKCHAIN</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NELS1RADAR | MONITORAMENTO GLOBAL</title>
     <style>
-        :root { --bg: #00050a; --blue: #58a6ff; --text-blue: #8ec2ff; }
-        body, html { margin: 0; padding: 0; background: var(--bg); color: #fff; font-family: 'Courier New', monospace; height: 100vh; overflow: hidden; display: flex; }
-        
-        /* SIDEBAR DINÂMICA */
-        #sidebar { width: 280px; background: rgba(0, 10, 20, 0.95); border-right: 1px solid #161b22; padding: 15px; z-index: 100; overflow-y: auto; }
-        .title { font-size: 12px; color: var(--blue); font-weight: bold; border-bottom: 1px solid #30363d; padding-bottom: 10px; margin-bottom: 15px; letter-spacing: 2px; }
-        .tx-item { font-size: 9px; color: var(--text-blue); margin-bottom: 8px; border-left: 2px solid var(--blue); padding-left: 5px; animation: fadeIn 0.5s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+        :root {
+            --bg: #00050a;
+            --blue: #58a6ff;
+            --text-blue: #8ec2ff;
+        }
 
-        /* GLOBO E ÓRBITAS */
-        #viewport { flex-grow: 1; display: flex; justify-content: center; align-items: center; perspective: 1200px; background: radial-gradient(circle, #001529 0%, #00050a 100%); }
-        .sphere { width: 400px; height: 400px; border-radius: 50%; position: relative; transform-style: preserve-3d; animation: rotateGlobe 40s linear infinite; background: url('https://upload.wikimedia.org/wikipedia/commons/2/2c/Rotating_earth_ (large).gif') center/cover; opacity: 0.8; box-shadow: inset 0 0 100px #000, 0 0 40px rgba(88, 166, 255, 0.2); }
-        
-        @keyframes rotateGlobe { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
+        body, html {
+            margin: 0; padding: 0;
+            background-color: var(--bg);
+            color: #fff;
+            font-family: 'Segoe UI', sans-serif;
+            height: 100vh; overflow: hidden;
+            display: flex;
+        }
 
-        /* SÍMBOLOS VOADORES (PARTÍCULAS DE TX) */
-        .crypto-flyer { position: absolute; font-weight: bold; pointer-events: none; text-shadow: 0 0 10px currentColor; }
+        /* PAINEL LATERAL - FONTE 10 AZUL CLARO */
+        #sidebar {
+            width: 250px;
+            background: rgba(0, 10, 20, 0.9);
+            border-right: 1px solid #161b22;
+            padding: 20px;
+            z-index: 100;
+        }
+
+        .title {
+            font-size: 12px;
+            color: var(--blue);
+            font-weight: bold;
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .item {
+            font-size: 10px; /* Tamanho solicitado */
+            color: var(--text-blue);
+            margin-bottom: 15px;
+            line-height: 1.5;
+            font-family: 'Courier New', monospace;
+            text-transform: uppercase;
+        }
+
+        .item b { color: #fff; }
+
+        /* VIEWPORT DO GLOBO 3D REAL */
+        #viewport {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+        }
+
+        .sphere {
+            width: 380px;
+            height: 380px;
+            border-radius: 50%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotate 30s linear infinite;
+            box-shadow: inset -30px -30px 80px #000, 
+                        inset 10px 10px 60px rgba(88, 166, 255, 0.2),
+                        0 0 30px rgba(88, 166, 255, 0.1);
+            background: repeating-linear-gradient(rgba(88, 166, 255, 0.05) 0 1px, transparent 1px 30px),
+                        repeating-linear-gradient(90deg, rgba(88, 166, 255, 0.05) 0 1px, transparent 1px 30px);
+        }
+
+        @keyframes rotate {
+            from { transform: rotateY(0deg) rotateX(15deg); }
+            to { transform: rotateY(360deg) rotateX(15deg); }
+        }
+
+        /* ATIVOS EM VOO (ESTILO FLIGHTRADAR) */
+        .plane {
+            position: absolute;
+            top: 50%; left: 50%;
+            font-size: 16px;
+            animation: orbit var(--speed) linear infinite;
+        }
+
+        @keyframes orbit {
+            from { transform: rotateY(var(--ry)) rotateX(var(--rx)) translateZ(220px) rotateY(calc(-1 * var(--ry))); }
+            to { transform: rotateY(calc(var(--ry) + 360deg)) rotateX(var(--rx)) translateZ(220px) rotateY(calc(-1 * (var(--ry) + 360deg))); }
+        }
+
+        .tag {
+            position: absolute;
+            bottom: 30px; right: 30px;
+            border: 1px solid #0ff;
+            padding: 10px 20px;
+            font-size: 10px;
+            color: #0ff;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
     </style>
 </head>
 <body>
 
-<div id="sidebar">
-    <div class="title">📡 LIVE TRANSACTIONS</div>
-    <div id="tx-feed">
-        <div class="tx-item">AGUARDANDO CONEXÃO...</div>
+    <div id="sidebar">
+        <div class="title">📡 RADAR NELS1BANK</div>
+        <div class="item"><b>USA:</b> 818.869/BTC <br> (STRATEGY VOL)</div>
+        <div class="item"><b>USA:</b> 125.40/ETH <br> (POS_STAKING)</div>
+        <div class="item"><b>USA:</b> 450.00/USDC <br> MILHÕES (CASH)</div>
+        <div class="item"><b>BR:</b> BBAS3/B3 <br> DIVIDEND_FLOW</div>
+        <div class="item"><b>BR:</b> PETR4/B3 <br> ALTA_LUZ_VOL</div>
+        <div class="item"><b>S.P:</b> NELS1U/NASA <br> STATUS: OPERANTE</div>
     </div>
-</div>
 
-<div id="viewport">
-    <div class="sphere" id="globe"></div>
-</div>
-
-<script>
-    const feed = document.getElementById('tx-feed');
-    const globe = document.getElementById('globe');
-
-    // CONEXÃO WEBSOCKET REAL (BLOCKCHAIN.INFO)
-    const btcSocket = new WebSocket('wss://ws.blockchain.info/inv');
-    
-    btcSocket.onopen = () => {
-        btcSocket.send(JSON.stringify({"op":"unconfirmed_sub"}));
-    };
-
-    btcSocket.onmessage = (msg) => {
-        const data = JSON.parse(msg.data);
-        if (data.op === 'utx') {
-            const val = (data.x.out.reduce((a, b) => a + b.value, 0) / 100000000).toFixed(4);
-            updateFeed('BTC', val, '#f7931a');
-            createFlyer('₿', '#f7931a');
-        }
-    };
-
-    function updateFeed(coin, amount, color) {
-        const div = document.createElement('div');
-        div.className = 'tx-item';
-        div.style.borderColor = color;
-        div.innerHTML = `<b>${coin}:</b> ${amount}<br>TX_${Math.random().toString(16).slice(2,8).toUpperCase()}`;
-        feed.prepend(div);
-        if (feed.children.length > 15) feed.lastChild.remove();
-    }
-
-    function createFlyer(symbol, color) {
-        const flyer = document.createElement('div');
-        flyer.className = 'crypto-flyer';
-        flyer.innerText = symbol;
-        flyer.style.color = color;
-        
-        // Posicionamento Aleatório ao redor do globo
-        const angle = Math.random() * Math.PI * 2;
-        const x = Math.cos(angle) * 250;
-        const y = Math.sin(angle) * 250;
-        
-        flyer.style.left = `calc(50% + ${x}px)`;
-        flyer.style.top = `calc(50% + ${y}px)`;
-        
-        document.getElementById('viewport').appendChild(flyer);
-        
-        // Animação de "Voo"
-        flyer.animate([
-            { transform: 'translate(0,0) scale(1)', opacity: 1 },
-            { transform: `translate(${-x/2}px, ${-y/2}px) scale(0)`, opacity: 0 }
-        ], { duration: 2000, easing: 'ease-out' }).onfinish = () => flyer.remove();
-    }
-
-    // Simulador de ETH/USDC para manter o radar ativo (Websocket real de ETH exige API Key)
-    setInterval(() => {
-        if(Math.random() > 0.7) {
-            updateFeed('ETH', (Math.random() * 5).toFixed(2), '#627eea');
-            createFlyer('Ξ', '#627eea');
-        }
-        if(Math.random() > 0.8) {
-            updateFeed('USDC', (Math.random() * 1000).toFixed(0), '#2775ca');
-            createFlyer('S', '#2775ca');
-        }
-    }, 3000);
-</script>
+    <div id="viewport">
+        <div class="sphere">
+            <div class="plane" style="--rx:20deg; --ry:0deg; --speed:20s;">₿</div>
+            <div class="plane" style="--rx:-30deg; --ry:120deg; --speed:35s;">Ξ</div>
+            <div class="plane" style="--rx:50deg; --ry:240deg; --speed:45s;">S</div>
+            <div class="plane" style="--rx:10deg; --ry:60deg; --speed:15s;">🚀</div>
+        </div>
+        <div class="tag">TAG FREE FLOW <-> ACTIVE</div>
+    </div>
 
 </body>
 </html>
