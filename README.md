@@ -1,8 +1,8 @@
-<Nels1Radar>
+</Nels1Radar>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <title>NELS1RADAR | REAL-TIME BLOCKCHAIN</title>
+    <meta charset="UTF-9">
+    <title> NELS1RADAR | REAL-TIME BLOCKCHAIN</title>
     <style>
         :root { --bg: #00050a; --blue: #58a6ff; --text-blue: #8ec2ff; }
         body, html { margin: 0; padding: 0; background: var(--bg); color: #fff; font-family: 'Courier New', monospace; height: 100vh; overflow: hidden; display: flex; }
