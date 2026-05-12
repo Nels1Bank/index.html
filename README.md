@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+< Real Time Nels1Radar>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NELS1RADAR - GLOBAL ASSET TRACKER</title>
+    <title>NELS1RADAR - LIVE ASSET TRACKER</title>
     <style>
         :root {
             --bg: #000205;
@@ -21,83 +21,56 @@
             display: flex;
         }
 
-        /* PAINEL LATERAL CORRIGIDO */
+        /* PAINEL LATERAL - ESTILO RADAR MILITAR */
         #sidebar {
             width: 240px;
-            min-width: 240px; /* Impede que a tabela desconfigure */
-            background: rgba(1, 4, 9, 0.95);
+            background: rgba(1, 4, 9, 0.9);
             border-right: 1px solid #30363d;
             padding: 15px;
             overflow-y: auto;
             z-index: 10;
-            box-sizing: border-box;
         }
 
         .sidebar-title {
-            font-size: 11px;
+            font-size: 12px;
             color: var(--radar-blue);
             border-bottom: 1px solid #30363d;
             padding-bottom: 8px;
             margin-bottom: 15px;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             font-weight: bold;
         }
 
         .asset-item {
-            font-size: 10px;
+            font-size: 10px; /* Tamanho solicitado */
             color: var(--sidebar-text);
             margin-bottom: 12px;
             line-height: 1.4;
             font-family: 'Courier New', monospace;
-            border-left: 2px solid transparent;
-            padding-left: 5px;
+            text-transform: uppercase;
         }
 
-        .asset-item:hover { border-left: 2px solid var(--radar-blue); }
         .asset-item b { color: #fff; }
 
-        /* VIEWPORT DO GLOBO */
+        /* ÁREA DO GLOBO */
         #viewport {
             flex-grow: 1;
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            perspective: 1200px; /* Aumenta a profundidade 3D */
-            background: radial-gradient(circle, #000814 0%, #000205 100%);
+            perspective: 1200px;
         }
 
-        /* O GLOBO COM CURVATURA (FIM DA TERRA PLANA) */
         .world-sphere {
-            width: 400px;
-            height: 400px;
+            width: 450px;
+            height: 450px;
+            border: 1px solid rgba(88, 166, 255, 0.2);
             border-radius: 50%;
             position: relative;
             transform-style: preserve-3d;
             animation: rotateGlobe 40s linear infinite;
-            
-            /* Sombra interna para dar volume de esfera */
-            box-shadow: 
-                inset -50px -50px 100px rgba(0,0,0,0.9),
-                inset 20px 20px 80px rgba(88, 166, 255, 0.2),
-                0 0 40px rgba(88, 166, 255, 0.1);
-            
-            /* Linhas de Grade (Latitude/Longitude) */
-            background-image: 
-                linear-gradient(rgba(88, 166, 255, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(88, 166, 255, 0.1) 1px, transparent 1px);
-            background-size: 30px 30px;
-            background-position: center;
-        }
-
-        /* Brilho na borda da "atmosfera" */
-        .world-sphere::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            border-radius: 50%;
-            box-shadow: inset 0 0 20px rgba(88, 166, 255, 0.3);
-            pointer-events: none;
+            background: radial-gradient(circle, rgba(88,166,255,0.05) 0%, transparent 70%);
         }
 
         @keyframes rotateGlobe {
@@ -105,11 +78,11 @@
             to { transform: rotateY(360deg) rotateX(15deg); }
         }
 
-        /* ATIVOS EM ÓRBITA */
+        /* ATIVOS EM ÓRBITA (AVIÕES) */
         .asset-plane {
             position: absolute;
             top: 50%; left: 50%;
-            font-size: 16px;
+            font-size: 14px;
             color: #fff;
             transform-origin: 0 0;
             animation: orbit var(--d) linear infinite;
@@ -119,42 +92,33 @@
         }
 
         @keyframes orbit {
-            /* O translateZ(240px) tira o ícone de "dentro" da terra */
-            from { transform: rotateY(var(--ry)) rotateX(var(--rx)) translateZ(240px) rotateY(calc(-1 * var(--ry))); }
-            to { transform: rotateY(calc(var(--ry) + 360deg)) rotateX(var(--rx)) translateZ(240px) rotateY(calc(-1 * (var(--ry) + 360deg))); }
+            from { transform: rotateY(var(--ry)) rotateX(var(--rx)) translateZ(230px) rotateY(calc(-1 * var(--ry))); }
+            to { transform: rotateY(calc(var(--ry) + 360deg)) rotateX(var(--rx)) translateZ(230px) rotateY(calc(-1 * (var(--ry) + 360deg))); }
         }
 
         .tag-overlay {
             position: absolute;
-            bottom: 20px; right: 20px;
+            bottom: 25px; right: 25px;
             background: rgba(0, 255, 255, 0.05);
             border: 1px solid #00FFFF;
-            padding: 8px 15px;
+            padding: 8px 20px;
             font-size: 11px;
             color: #00FFFF;
             font-weight: bold;
             letter-spacing: 2px;
-            border-radius: 2px;
-        }
-
-        /* Ajuste para telas pequenas */
-        @media (max-width: 768px) {
-            body { flex-direction: column; }
-            #sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid #30363d; }
-            .world-sphere { width: 250px; height: 250px; }
         }
     </style>
 </head>
 <body>
 
     <div id="sidebar">
-        <div class="sidebar-title">📡 NELS1RADAR v7.0</div>
+        <div class="sidebar-title">📡 LIVE ASSETS (NELS1BANK)</div>
         
         <div class="asset-item"><b>USA:</b> 818.869/BTC <br> (STRATEGY VOLUME)</div>
         <div class="asset-item"><b>USA:</b> 125.40/ETH <br> (POS_STAKING_NODE)</div>
         <div class="asset-item"><b>USA:</b> 450.00/USDC <br> MILHÕES (LIQUIDITY)</div>
         <div class="asset-item"><b>BR:</b> BBAS3/B3 <br> DIVIDEND_FLOW_ACTIVE</div>
-        <div class="asset-item"><b>BR:</b> PETR4/B3 <br> ALTA_LUZ_VOL</div>
+        <div class="asset-item"><b>BR:</b> PETR4/B3 <br> ALTA_LUZ_ESTRUTURA</div>
         <div class="asset-item"><b>S.P:</b> NELS1U/NASA <br> STATUS: OPERANTE</div>
     </div>
 
@@ -164,11 +128,12 @@
     </div>
 
     <script>
+        // Dados para as órbitas dos ativos
         const assets = [
-            { icon: '₿', name: 'BTC', rx: '25deg', ry: '0deg', d: '20s' },
-            { icon: 'Ξ', name: 'ETH', rx: '-15deg', ry: '120deg', d: '30s' },
-            { icon: 'S', name: 'USDC', rx: '45deg', ry: '240deg', d: '40s' },
-            { icon: '🚀', name: 'NELS1', rx: '10deg', ry: '60deg', d: '15s' }
+            { icon: '₿', name: 'BTC', rx: '25deg', ry: '0deg', d: '22s' },
+            { icon: 'Ξ', name: 'ETH', rx: '-20deg', ry: '120deg', d: '30s' },
+            { icon: 'S', name: 'USDC', rx: '50deg', ry: '240deg', d: '40s' },
+            { icon: '📡', name: 'NELS1', rx: '10deg', ry: '60deg', d: '18s' }
         ];
 
         const globe = document.getElementById('globe');
