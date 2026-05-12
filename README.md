@@ -1,4 +1,4 @@
-< Real Time Nels1Radar>
+<!Nels1Radar>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -9,7 +9,7 @@
             --bg: #000205;
             --radar-blue: #58a6ff;
             --radar-green: #3fb950;
-            --sidebar-text: #8ec2ff;
+            --sidebar-text: #8ec2ff; /* Azul claro estilo FlightRadar */
         }
 
         body, html {
@@ -21,12 +21,12 @@
             display: flex;
         }
 
-        /* PAINEL LATERAL - ESTILO RADAR MILITAR */
+        /* --- PAINEL LATERAL (LISTA DE VÔOS) --- */
         #sidebar {
-            width: 240px;
+            width: 220px;
             background: rgba(1, 4, 9, 0.9);
             border-right: 1px solid #30363d;
-            padding: 15px;
+            padding: 10px;
             overflow-y: auto;
             z-index: 10;
         }
@@ -35,42 +35,49 @@
             font-size: 12px;
             color: var(--radar-blue);
             border-bottom: 1px solid #30363d;
-            padding-bottom: 8px;
-            margin-bottom: 15px;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
             letter-spacing: 1px;
-            font-weight: bold;
         }
 
         .asset-item {
             font-size: 10px; /* Tamanho solicitado */
             color: var(--sidebar-text);
-            margin-bottom: 12px;
-            line-height: 1.4;
+            margin-bottom: 8px;
+            line-height: 1.2;
             font-family: 'Courier New', monospace;
-            text-transform: uppercase;
         }
 
         .asset-item b { color: #fff; }
 
-        /* ÁREA DO GLOBO */
+        /* --- GLOBO E MAPA --- */
         #viewport {
             flex-grow: 1;
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            perspective: 1200px;
+            perspective: 1000px;
         }
 
+        /* O Globo 3D */
         .world-sphere {
-            width: 450px;
-            height: 450px;
+            width: 400px;
+            height: 400px;
             border: 1px solid rgba(88, 166, 255, 0.2);
             border-radius: 50%;
             position: relative;
             transform-style: preserve-3d;
             animation: rotateGlobe 40s linear infinite;
-            background: radial-gradient(circle, rgba(88,166,255,0.05) 0%, transparent 70%);
+        }
+
+        /* Linhas de Latitude/Longitude */
+        .world-sphere::before {
+            content: '';
+            position: absolute;
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            box-shadow: inset 0 0 50px rgba(88, 166, 255, 0.1);
         }
 
         @keyframes rotateGlobe {
@@ -78,7 +85,7 @@
             to { transform: rotateY(360deg) rotateX(15deg); }
         }
 
-        /* ATIVOS EM ÓRBITA (AVIÕES) */
+        /* Os "Aviões" (Ativos) */
         .asset-plane {
             position: absolute;
             top: 50%; left: 50%;
@@ -88,52 +95,55 @@
             animation: orbit var(--d) linear infinite;
             white-space: nowrap;
             text-shadow: 0 0 10px var(--radar-blue);
-            font-weight: bold;
         }
 
         @keyframes orbit {
-            from { transform: rotateY(var(--ry)) rotateX(var(--rx)) translateZ(230px) rotateY(calc(-1 * var(--ry))); }
-            to { transform: rotateY(calc(var(--ry) + 360deg)) rotateX(var(--rx)) translateZ(230px) rotateY(calc(-1 * (var(--ry) + 360deg))); }
+            from { transform: rotateY(var(--ry)) rotateX(var(--rx)) translateZ(210px) rotateY(calc(-1 * var(--ry))); }
+            to { transform: rotateY(calc(var(--ry) + 360deg)) rotateX(var(--rx)) translateZ(210px) rotateY(calc(-1 * (var(--ry) + 360deg))); }
         }
 
+        /* TAG FREE FLOW */
         .tag-overlay {
             position: absolute;
-            bottom: 25px; right: 25px;
-            background: rgba(0, 255, 255, 0.05);
+            bottom: 20px; right: 20px;
+            background: rgba(0, 255, 255, 0.1);
             border: 1px solid #00FFFF;
-            padding: 8px 20px;
-            font-size: 11px;
+            padding: 5px 15px;
+            font-size: 12px;
             color: #00FFFF;
             font-weight: bold;
-            letter-spacing: 2px;
+            border-radius: 4px;
         }
     </style>
 </head>
 <body>
 
     <div id="sidebar">
-        <div class="sidebar-title">📡 LIVE ASSETS (NELS1BANK)</div>
+        <div class="sidebar-title">📡 LIVE ASSETS (B3/ANDRÔMEDA)</div>
         
-        <div class="asset-item"><b>USA:</b> 818.869/BTC <br> (STRATEGY VOLUME)</div>
-        <div class="asset-item"><b>USA:</b> 125.40/ETH <br> (POS_STAKING_NODE)</div>
-        <div class="asset-item"><b>USA:</b> 450.00/USDC <br> MILHÕES (LIQUIDITY)</div>
-        <div class="asset-item"><b>BR:</b> BBAS3/B3 <br> DIVIDEND_FLOW_ACTIVE</div>
-        <div class="asset-item"><b>BR:</b> PETR4/B3 <br> ALTA_LUZ_ESTRUTURA</div>
+        <!-- Legendas solicitadas -->
+        <div class="asset-item"><b>USA:</b> 818.869/BTC <br> (STRATEGY VOL)</div>
+        <div class="asset-item"><b>USA:</b> 125.40/ETH <br> (POS_STAKING)</div>
+        <div class="asset-item"><b>USA:</b> 450.00/USDC <br> MILHÕES (CASH)</div>
+        <div class="asset-item"><b>BR:</b> BBAS3/B3 <br> DIVIDEND_FLOW</div>
+        <div class="asset-item"><b>BR:</b> PETR4/B3 <br> ALTA_LUZ_VOL</div>
         <div class="asset-item"><b>S.P:</b> NELS1U/NASA <br> STATUS: OPERANTE</div>
     </div>
 
     <div id="viewport">
-        <div class="world-sphere" id="globe"></div>
+        <div class="world-sphere" id="globe">
+            <!-- Os ativos serão injetados aqui via JS -->
+        </div>
+        
         <div class="tag-overlay">TAG FREE FLOW <-> ACTIVE</div>
     </div>
 
     <script>
-        // Dados para as órbitas dos ativos
         const assets = [
-            { icon: '₿', name: 'BTC', rx: '25deg', ry: '0deg', d: '22s' },
-            { icon: 'Ξ', name: 'ETH', rx: '-20deg', ry: '120deg', d: '30s' },
-            { icon: 'S', name: 'USDC', rx: '50deg', ry: '240deg', d: '40s' },
-            { icon: '📡', name: 'NELS1', rx: '10deg', ry: '60deg', d: '18s' }
+            { icon: '₿', name: 'BTC', rx: '20deg', ry: '0deg', d: '25s' },
+            { icon: 'Ξ', name: 'ETH', rx: '-30deg', ry: '45deg', d: '35s' },
+            { icon: 'S', name: 'USDC', rx: '60deg', ry: '90deg', d: '45s' },
+            { icon: '🚀', name: 'NELS1', rx: '-10deg', ry: '180deg', d: '15s' }
         ];
 
         const globe = document.getElementById('globe');
@@ -144,7 +154,7 @@
             el.style.setProperty('--rx', asset.rx);
             el.style.setProperty('--ry', asset.ry);
             el.style.setProperty('--d', asset.d);
-            el.innerHTML = asset.icon + ' <span style="font-size:9px">' + asset.name + '</span>';
+            el.innerHTML = asset.icon + ' <span style="font-size:8px">' + asset.name + '</span>';
             globe.appendChild(el);
         });
     </script>
