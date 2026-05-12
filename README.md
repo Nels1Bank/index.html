@@ -1,14 +1,14 @@
-<Nels1Radar>
+< Nels1Radar />
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>NELS1RADAR BR | LIVE TRACKER</title>
+    <title> | NELS1RADAR BR | LIVE TRACKER</title>
     <style>
         :root { --bg: #000205; --neon-blue: #00d2ff; --br-green: #00ff41; }
         body, html { margin: 0; padding: 0; background: var(--bg); color: var(--br-green); font-family: 'Courier New', monospace; height: 100vh; overflow: hidden; display: flex; }
         
-        /* PAINEL LATERAL BRASIL */
-        #sidebar { width: 260px; background: rgba(0, 15, 30, 0.9); border-right: 1px solid #003300; padding: 15px; z-index: 100; overflow-y: auto; box-shadow: 5px 0 15px rgba(0, 255, 65, 0.1); }
+        /* by MaquinadoDigital */
+        #sidebar { width: 360px; background: rgba(0, 15, 30, 0.9); border-right: 1px solid #003300; padding: 15px; z-index: 100; overflow-y: auto; box-shadow: 5px 0 15px rgba(0, 255, 65, 0.1); }
         .title { font-size: 12px; color: var(--neon-blue); font-weight: bold; border-bottom: 1px solid #004400; padding-bottom: 10px; margin-bottom: 15px; letter-spacing: 2px; text-align: center; }
         .tx-item { font-size: 9px; color: #8ec2ff; margin-bottom: 8px; border-left: 2px solid var(--br-green); padding-left: 8px; animation: slideIn 0.3s ease-out; }
         @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
@@ -19,7 +19,7 @@
             background: url('https://upload.wikimedia.org/wikipedia/commons/2/2c/Rotating_earth_(large).gif') center/cover;
             box-shadow: inset 0 0 80px #000, 0 0 50px rgba(0, 255, 65, 0.15); border: 1px solid rgba(0, 255, 65, 0.2); }
         
-        @keyframes rotateBr { from { transform: rotateY(0deg) rotateX(10deg); } to { transform: rotateY(360deg) rotateX(10deg); } }
+        @keyframes rotateBr { from { transform: rotateY(0deg) rotateX(15deg); } to { transform: rotateY(360deg) rotateX(15deg); } }
 
         /* AS CRYPTOS VOANDO */
         .flyer { position: absolute; font-weight: bold; font-size: 18px; pointer-events: none; text-shadow: 0 0 15px currentColor; z-index: 200; }
@@ -30,7 +30,7 @@
 <body>
 
 <div id="sidebar">
-    <div class="title">🇧🇷 RADAR BRASIL LIVE</div>
+    <div class="title">🇧🇷 Nels1Radar </div>
     <div id="tx-feed">
         <div class="tx-item">ESTABILIZANDO SINAL...</div>
     </div>
@@ -38,7 +38,7 @@
 
 <div id="viewport">
     <div class="sphere" id="globe"></div>
-    <div class="tag">NELS1BANK | SANTANA DE PARNAÍBA</div>
+    <div class="tag">NELS1BANK | SANTANA DE PARNAÍBA </div>
 </div>
 
 <script>
