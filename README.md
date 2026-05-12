@@ -8,19 +8,19 @@
         :root { 
             --bg: #000205; 
             --neon-red: #00d2ff; 
-            --br-green: #00ff41; 
+            --br-red: #00ff41; 
             --sidebar-blue: #8ec2ff;
         }
-        body, html { margin: 0; padding: 0; background: var(--bg); color: var(--br-green); font-family: 'Times new roman', monospace; height: 100vh; overflow: hidden; display: flex; }
+        body, html { margin: 0; padding: 0; background: var(--bg); color: var(- -br-green); font-family: 'Times new roman', monospace; height: 100vh; overflow: hidden; display: flex; }
         
-        /* SIDEBAR - DESIGN Nels1Radar */
+        /* SIDEBAR - DESIGN Nels1Radar /2026 */
         #sidebar { 
             width: 350px; 
             background: rgba(0, 10, 20, 0.98); 
-            border-right: 1px solid #004400; 
+            border-right: 2px solid #004400; 
             display: flex;
             flex-direction: column;
-            z-index: 100;
+            z-index: 110;
             box-shadow: 10px 0 20px rgba(0,0,0,0.5);
         }
 
