@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <!-- O nome que aparece na aba do navegador -->
-    <title>Nels1Radar | COMMAND CENTER</title>
+    <title>  Nels1Radar  | COMMAND CENTER</title>
     <style>
         :root { 
             --bg: #000205; 
@@ -11,9 +11,9 @@
             --br-green: #00ff41; 
             --sidebar-blue: #8ec2ff;
         }
-        body, html { margin: 0; padding: 0; background: var(--bg); color: var(--br-green); font-family: 'Courier New', monospace; height: 100vh; overflow: hidden; display: flex; }
+        body, html { margin: 0; padding: 0; background: var(--bg); color: var(--br-green); font-family: 'Times new roman', monospace; height: 100vh; overflow: hidden; display: flex; }
         
-        /* SIDEBAR - DESIGN NELS1RADAR */
+        /* SIDEBAR - DESIGN Nels1Radar */
         #sidebar { 
             width: 300px; 
             background: rgba(0, 10, 20, 0.98); 
@@ -30,7 +30,7 @@
             background: linear-gradient(180deg, rgba(0, 30, 60, 0.4) 0%, rgba(0,0,0,0) 100%);
         }
 
-        .system-name { font-size: 14px; color: var(--neon-blue); font-weight: bold; letter-spacing: 3px; text-align: center; }
+        .system-name { font-size: 13px; color: var(--neon-blue); font-weight: bold; letter-spacing: 3px; text-align: center; }
         .system-status { font-size: 9px; color: var(--br-green); text-align: center; margin-top: 5px; letter-spacing: 1px; }
 
         #tx-feed { 
@@ -64,7 +64,7 @@
         @keyframes rotateBr { from { transform: rotateY(0deg) rotateX(10deg); } to { transform: rotateY(360deg) rotateX(10deg); } }
 
         /* AS CRYPTOS VOANDO */
-        .flyer { position: absolute; font-weight: bold; font-size: 22px; pointer-events: none; text-shadow: 0 0 20px currentColor; z-index: 200; }
+        .flyer { position: absolute; font-weight: bold; font-size: 20px; pointer-events: none; text-shadow: 0 0 20px currentColor; z-index: 200; }
         
         .footer-tag { 
             position: absolute; bottom: 20px; right: 20px; 
@@ -78,7 +78,7 @@
 
 <div id="sidebar">
     <div class="header-table">
-        <div class="system-name">NELS1RADAR v1.0</div>
+        <div class="system-name">Nels1Radar v1.0</div>
         <div class="system-status">CORE: OPERATIONAL | BR-SP</div>
     </div>
     <div id="tx-feed">
@@ -88,7 +88,7 @@
 
 <div id="viewport">
     <div class="sphere" id="globe"></div>
-    <div class="footer-tag">SANTANA DE PARNAÍBA // ASSET_FLOW: ACTIVE</div>
+    <div class="footer-tag">SANTANA DE PARNAÍBA SP // ASSET_FLOW: ACTIVE</div>
 </div>
 
 <script>
